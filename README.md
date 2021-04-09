@@ -4,7 +4,7 @@ A small GUI app for vcpkg tool.
 
 ## Building and Running
 
-To build the project you need JDK **15**.\
+To build the project you need JDK 14 or 15. Build with JDK 16 will fail.\
 `vcpkg_root` is a directory that contain **vcpkg**.
 
 ### Way 1 | Run with Gradle's `run` task
