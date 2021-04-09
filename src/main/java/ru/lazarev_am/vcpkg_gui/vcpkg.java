@@ -31,6 +31,21 @@ public class vcpkg {
         }
     }
 
+    public static Package packageFromString(String string) {
+        StringTokenizer tokenizer = new StringTokenizer(string);
+        Package pack = new Package();
+        pack.name =  tokenizer.nextToken();
+        pack.version = (pack.name.contains("[")) ? null : tokenizer.nextToken();
+
+        StringBuilder desc = new StringBuilder();
+        while (tokenizer.hasMoreTokens())
+            desc.append(tokenizer.nextToken()).append(" ");
+
+        pack.description = desc.toString();
+
+        return pack;
+    }
+
     private static ArrayList<Package> linesIntoPackages(List<String> lines) {
         if (lines == null)
             return null;
@@ -42,16 +57,7 @@ public class vcpkg {
         for (String line: lines) {
             if (line.isEmpty())
                 break;
-
-            StringTokenizer tokenizer = new StringTokenizer(line);
-            Package pack = new Package();
-            pack.name =  tokenizer.nextToken();
-            pack.version = (pack.name.endsWith("]")) ? null : tokenizer.nextToken();
-            pack.description = "";
-            while (tokenizer.hasMoreTokens())
-                pack.description += tokenizer.nextToken() + " ";
-
-            packages.add(pack);
+            packages.add(packageFromString(line));
         }
 
         return packages;
@@ -81,8 +87,12 @@ public class vcpkg {
     public ArrayList<Package> searchPackage(String packageName) {
         return linesIntoPackages(runVcpkg("search", packageName));
     }
-    public String removePackage(String packageName) {
-        return linesIntoString(runVcpkg("remove", packageName));
+
+    public String removePackage(String packageName, boolean withRecurse) {
+        if (withRecurse)
+            return linesIntoString(runVcpkg("remove", packageName, "--recurse"));
+        else
+            return linesIntoString(runVcpkg("remove", packageName));
     }
 
     public String installPackage(String packageName, boolean withRecurse) {

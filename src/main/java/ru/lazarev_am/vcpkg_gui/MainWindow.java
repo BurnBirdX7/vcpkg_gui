@@ -10,6 +10,7 @@ public class MainWindow extends TableWindow {
     static final String UPDATE_BUTTON_TEXT = "Update";
     static final String ADD_BUTTON_TEXT = "Add";
     static final String REMOVE_BUTTON_TEXT = "Remove";
+    static final String REMOVE_W_RECURSE_BUTTON_TEXT = "Remove (With Recurse)";
 
     // Constructor:
     public MainWindow(vcpkg vcpkg) {
@@ -28,14 +29,14 @@ public class MainWindow extends TableWindow {
         super.updateTable(mVcpkg.getInstalledPackages());
     }
 
-    private void removeSelectedPackage() {
+    private void removeSelectedPackage(boolean withRecurse) {
         int row = mTable.getSelectedRow();
         if (row == -1)
             return;
 
-        String packageName = mTable.getValueAt(row, 0).toString();
+        String packageName = mTableModel.getPackageNameAtRow(row);
 
-        String details = mVcpkg.removePackage(packageName);
+        String details = mVcpkg.removePackage(packageName, withRecurse);
 
         if (details != null) {
             DetailsDialog dialog = new DetailsDialog("Package " + packageName + " deleted.", details, this);
@@ -52,7 +53,8 @@ public class MainWindow extends TableWindow {
         String btn = e.getActionCommand();
         switch (btn) {
             case ADD_BUTTON_TEXT -> mInstallWindow.newSearch();
-            case REMOVE_BUTTON_TEXT -> removeSelectedPackage();
+            case REMOVE_BUTTON_TEXT -> removeSelectedPackage(false);
+            case REMOVE_W_RECURSE_BUTTON_TEXT -> removeSelectedPackage(true);
             case UPDATE_BUTTON_TEXT -> updateTable();
         }
     }
@@ -60,6 +62,7 @@ public class MainWindow extends TableWindow {
     private void constructInterface() {
         mAddButton = new JButton(ADD_BUTTON_TEXT);
         mRemoveButton = new JButton(REMOVE_BUTTON_TEXT);
+        mRemoveWRecurseButton = new JButton(REMOVE_W_RECURSE_BUTTON_TEXT);
         mUpdateButton = new JButton(UPDATE_BUTTON_TEXT);
     }
 
@@ -68,16 +71,19 @@ public class MainWindow extends TableWindow {
 
         addButton(mAddButton);
         addButton(mRemoveButton);
+        addButton(mRemoveWRecurseButton);
         addButton(mUpdateButton);
 
         mAddButton.addActionListener(this::buttonListener);
         mRemoveButton.addActionListener(this::buttonListener);
+        mRemoveWRecurseButton.addActionListener(this::buttonListener);
         mUpdateButton.addActionListener(this::buttonListener);
     }
 
     // Interface:
     private JButton mAddButton;
     private JButton mRemoveButton;
+    private JButton mRemoveWRecurseButton;
     private JButton mUpdateButton;
 
     private final vcpkg mVcpkg;

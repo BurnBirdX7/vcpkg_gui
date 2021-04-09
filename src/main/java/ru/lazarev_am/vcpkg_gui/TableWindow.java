@@ -4,6 +4,62 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Vector;
+
+class PackageTableModel extends AbstractTableModel {
+
+    public static final int COLUMN_COUNT = 3;
+    public static final int NAME_COLUMN = 0;
+    public static final int VERS_COLUMN = 1;
+    public static final int DESC_COLUMN = 2;
+
+
+    public PackageTableModel() {
+        this.mPackages = new Vector<>();
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return switch (column) {
+            case NAME_COLUMN -> "Name";
+            case VERS_COLUMN -> "Version";
+            case DESC_COLUMN -> "Description";
+            default -> null;
+        };
+    }
+
+    public void setPackages(List<vcpkg.Package> list) {
+        mPackages.clear();
+        mPackages.addAll(list);
+        fireTableDataChanged();
+    }
+
+    public String getPackageNameAtRow(int row) {
+        return mPackages.elementAt(row).name;
+    }
+
+    @Override
+    public int getRowCount() {
+        return mPackages.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return COLUMN_COUNT;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return switch (columnIndex) {
+            case NAME_COLUMN -> mPackages.elementAt(rowIndex).name;
+            case VERS_COLUMN -> mPackages.elementAt(rowIndex).version;
+            case DESC_COLUMN -> mPackages.elementAt(rowIndex).description;
+            default -> null;
+        };
+    }
+
+    private final Vector<vcpkg.Package> mPackages;
+}
 
 public class TableWindow extends JFrame {
 
@@ -24,9 +80,7 @@ public class TableWindow extends JFrame {
     }
 
     protected void updateTable(List<vcpkg.Package> packageList) {
-        mTableModel.setRowCount(0); // Remove all rows
-        for (vcpkg.Package pack: packageList)
-            mTableModel.addRow(pack.getArray());
+        mTableModel.setPackages(packageList);
     }
 
     // Interface methods:
@@ -39,7 +93,7 @@ public class TableWindow extends JFrame {
     }
 
     private void configureTable() {
-        mTableModel = new DefaultTableModel();
+        mTableModel = new PackageTableModel();
         mTable.setModel(mTableModel);
 
         mTable.setPreferredScrollableViewportSize(new Dimension(800, 350));
@@ -49,7 +103,6 @@ public class TableWindow extends JFrame {
         mMainPanel.add(mScrollPane, BorderLayout.CENTER);
 
         // Columns:
-        mTableModel.setColumnIdentifiers(new String[]{"name", "version", "description"});
         TableColumnModel columnModel = mTable.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(100);
         columnModel.getColumn(1).setPreferredWidth(100);
@@ -65,6 +118,6 @@ public class TableWindow extends JFrame {
     protected JTable mTable;
     protected JPanel mButtonsPanel;
 
-    protected DefaultTableModel mTableModel;
+    protected PackageTableModel mTableModel;
 
 }

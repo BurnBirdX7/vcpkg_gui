@@ -57,7 +57,7 @@ public class InstallWindow extends TableWindow {
         if (row == -1)
             return;
 
-        String packageName = mTableModel.getValueAt(row, 0).toString();
+        String packageName = mTableModel.getPackageNameAtRow(row);
 
         String details = mVcpkg.installPackage(packageName, withRecurse);
         if (details != null) {
