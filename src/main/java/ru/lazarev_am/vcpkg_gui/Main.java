@@ -1,6 +1,5 @@
-package ru.lazarev_am;
+package ru.lazarev_am.vcpkg_gui;
 
-import java.util.Arrays;
 
 public class Main {
 

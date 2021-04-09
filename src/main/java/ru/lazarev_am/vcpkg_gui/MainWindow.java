@@ -1,11 +1,8 @@
-package ru.lazarev_am;
+package ru.lazarev_am.vcpkg_gui;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Vector;
 
 public class MainWindow extends TableWindow {
 

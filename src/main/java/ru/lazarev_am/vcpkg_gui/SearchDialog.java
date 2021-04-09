@@ -1,4 +1,4 @@
-package ru.lazarev_am;
+package ru.lazarev_am.vcpkg_gui;
 
 import javax.swing.*;
 import java.awt.*;
