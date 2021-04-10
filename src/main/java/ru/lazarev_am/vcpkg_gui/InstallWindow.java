@@ -10,7 +10,7 @@ interface InstallationListener {
 
 public class InstallWindow extends TableWindow {
 
-    public InstallWindow(vcpkg vcpkg) {
+    public InstallWindow(Vcpkg vcpkg) {
         super("Install new package");
         mListeners = new ArrayList<>();
         constructInterface();
@@ -89,6 +89,6 @@ public class InstallWindow extends TableWindow {
 
     private ArrayList<InstallationListener> mListeners;
 
-    private vcpkg mVcpkg;
+    private Vcpkg mVcpkg;
 
 }

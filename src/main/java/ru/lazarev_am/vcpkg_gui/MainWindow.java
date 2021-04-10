@@ -13,7 +13,7 @@ public class MainWindow extends TableWindow {
     static final String REMOVE_W_RECURSE_BUTTON_TEXT = "Remove (With Recurse)";
 
     // Constructor:
-    public MainWindow(vcpkg vcpkg) {
+    public MainWindow(Vcpkg vcpkg) {
         super("vcpkg gui || Artemiy Lazarev");
         mVcpkg = vcpkg;
         mInstallWindow = new InstallWindow(vcpkg);
@@ -86,7 +86,7 @@ public class MainWindow extends TableWindow {
     private JButton mRemoveWRecurseButton;
     private JButton mUpdateButton;
 
-    private final vcpkg mVcpkg;
+    private final Vcpkg mVcpkg;
     private final InstallWindow mInstallWindow;
 
 }

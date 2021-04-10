@@ -28,7 +28,7 @@ class PackageTableModel extends AbstractTableModel {
         };
     }
 
-    public void setPackages(List<vcpkg.Package> list) {
+    public void setPackages(List<Vcpkg.Package> list) {
         mPackages.clear();
         mPackages.addAll(list);
         fireTableDataChanged();
@@ -58,7 +58,7 @@ class PackageTableModel extends AbstractTableModel {
         };
     }
 
-    private final Vector<vcpkg.Package> mPackages;
+    private final Vector<Vcpkg.Package> mPackages;
 }
 
 public class TableWindow extends JFrame {
@@ -79,7 +79,7 @@ public class TableWindow extends JFrame {
         mButtonsPanel.add(button);
     }
 
-    protected void updateTable(List<vcpkg.Package> packageList) {
+    protected void updateTable(List<Vcpkg.Package> packageList) {
         mTableModel.setPackages(packageList);
     }
 
