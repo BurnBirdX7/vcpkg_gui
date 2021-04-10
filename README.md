@@ -1,36 +1,24 @@
 # vcpkg_gui
 
 A small GUI app for the vcpkg tool.
+To run the program you need either:
+ * Pass a path to the `vcpkg`'s root directory as an argument, *or*
+ * Execute the program from the `vcpkg`'s root directory.
+***
 
-## Build and Execute
+## Build and execute
 To build the project you need JDK 14 or 15. Build with JDK 16 will fail.\
-
-***
-
-### Preparation
-Firstly, you have to clone the repo.
-* Then you go to the repo's root
-* *(for Unix)* permit execution of `.gradlew`.
-
-**Windows:**
-```shell
-> cd path\to\the\repo\ # on Windows
-```
-**Unix:**
-```shell
-$ cd path/to/the/repo/
-$ chmod +x gradlew
-```
-
-***
+Firstly, you have to clone the repo. Then you should go to the repo's root.
 
 ### Way 1 | Run with Gradle's `run` task
-Execute in a terminal in the repository's root:
+Execute in the terminal:
 ```shell
-> .\gradlew run --args vcpkg_root
+> .\gradlew run --args path\to\vcpkg
 ```
-***
-### Way 2 | Build and Run a jar
+(Replace `path\to\vcpkg` with the actual path to vcpkg's root)
+
+
+### Way 2 | Build and execute a .jar file
 #### 2.1 Build
 ```shell
 > .\gradlew jar
@@ -39,22 +27,16 @@ Execute in a terminal in the repository's root:
 
 #### 2.2 Run
 
-Execute:
 ```shell  
-> cd .\build\libs\                        # Go to the .jar file
-> java -jar vcpkg_gui-1.0.jar vcpkg_root  # Execute with path to vcpkg as an argument
+> cd .\build\libs\                          # Go to the .jar file
+> java -jar vcpkg_gui-1.0.jar path\to\vcpkg # Execute with path to vcpkg as an argument
 ```
 
-**----- or -----**
+*or*
 
-Move the .jar file into the `vcpkg_root`, and then execute:
-```shell
-> java -jar vcpkg_gui-1.0.jar
-```
-Or just with a double-click in your GUI
+Move it to the `vcpkg`'s root and execute it there.
+***
 
-***
-***
 
 ## Examples
 [ Executed on Ubuntu 20.04 ] In my case, vcpkg was located in `~/vcpkg/`.
@@ -63,14 +45,12 @@ Or just with a double-click in your GUI
 ```shell
 $ git clone https://github.com/BurnBirdX7/vcpkg_gui.git # clone
 $ cd ./vcpkg_gui                                        # go to the repo
-$ chmod +x gradlew                                      # permit execution of ./gradlew
 ```
 
 **Way 1**
 ```shell
 $ ./gradlew run --args ~/vcpkg/                         # execute the program with "~/vcpkg/" argument
 ```
-`chmod +x gradlew` is not required for Windows.
 
 **Way 2**
 ```shell
