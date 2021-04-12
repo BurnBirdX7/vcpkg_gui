@@ -1,3 +1,4 @@
+[Русский](./README_ru.md)
 # vcpkg_gui
 
 A small GUI app for the vcpkg tool.
@@ -38,7 +39,7 @@ Move it to the `vcpkg`'s root and execute it there.
 ***
 
 
-## Examples
+## Example
 [ Executed on Ubuntu 20.04 ] In my case, vcpkg was located in `~/vcpkg/`.
 
 **Preparation**
@@ -62,7 +63,7 @@ $ java -jar build/libs/vcpkg_gui-1.0.jar ~/vcpkg/       # execute the .jar file 
 ```shell
 $ ./gradlew jar                                         # build a .jar file
 
-$ mv ./build/libs/vcpkg_gui-1.0.jar ~/vcpkg/            # move file to the vcpkg_root directory
+$ mv ./build/libs/vcpkg_gui-1.0.jar ~/vcpkg/            # move file to the vcpkg root directory
 $ cd ~/vcpkg/                                           # go to the directory
 $ java -jar vcpkg_gui-1.0.jar                           # execute the .jar with no arguments
 ```
